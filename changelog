@@ -1,4 +1,22 @@
-commit e814dd1c4318c802eaea8570480b20d5df3019c6 (HEAD -> main, origin/main)
+commit 4702d72ea4539803be2bbc775dc6c8a12a739264 (HEAD -> main, origin/main)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 09:34:59 2024 -0400
+
+    * ejemplos y env
+
+commit 7de3fde23c5870912a96bf9c357aeb2948a57ca2
+Author: Jesús Palencia <sinfallas@gmail.com>
+Date:   Mon Dec 9 10:12:02 2024 -0400
+
+    Update Dockerfile
+
+commit 93df275b3c0667efd897d126c6d0e01f858f88b6
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Sun Dec 8 18:50:36 2024 -0400
+
+    * changelog
+
+commit e814dd1c4318c802eaea8570480b20d5df3019c6
 Author: Jesus Palencia <sinfallas@gmail.com>
 Date:   Sun Dec 8 18:50:21 2024 -0400
 
