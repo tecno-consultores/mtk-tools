@@ -13,6 +13,7 @@ cscp="scp -4 -C -o ConnectTimeout=3"
 ctar="tar -czf"
 donde="/app"
 archi="/app/log.txt"
+correo='swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s'
 
 function clean_1() {
 	rm -f /tmp/$(basename $0)_$(whoami)
@@ -53,14 +54,14 @@ for i in ${ips[@]}; do
 done
 
 echo "Comprimiendo"
-$ctar $donde/donde-$fecha.tar.gz donde/
+$ctar $donde/backup-$fecha.tar.gz donde/
 
-if [[ -z "$MAILSERVER" ]]; then
+if [[ -z "$cserver" ]]; then
 	echo "No se enviara correo."
 else
-	swaks -4 --to $MAILTO --from $MAILFROM --server $MAILSERVER:$MAILPORT -tls --auth LOGIN --auth-user $MAILUSER --auth-password $MAILPASS --timeout 60s --header "Subject: Reporte de comparacion %DATE%" --body "Se adjunta el archivo." --attach-type "text/plain" --attach-name "resultado.txt" --attach @/app/resultado.txt
+	$correo --header "Subject: Respaldo de configuracion de los Mikrotik en %DATE%" --body "Se adjunta el archivo." --attach-type "application/x-compressed-tar" --attach-name "backup-$fecha.tar.gz" --attach @/app/backup-$fecha.tar.gz
 fi
 
 echo "duracion $SECONDS segundos"
-echo -e "\e[00;1;92mFinalizado.\e[00m"
+echo "Finalizado."
 exit 0
