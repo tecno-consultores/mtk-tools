@@ -1,4 +1,16 @@
-commit 188f606c7d6985c05e856ed4b4e10d2e1b1225ae (HEAD -> main, origin/main)
+commit 8d9514505a2ceb62ede127a3dfb7a6cb5434d396 (HEAD -> main, origin/main)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 10:10:00 2024 -0400
+
+    * qr user and pass
+
+commit 37e8d0977f2b49bd4ea87ba252651e0190d33e13
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 09:55:07 2024 -0400
+
+    * changelog
+
+commit 188f606c7d6985c05e856ed4b4e10d2e1b1225ae
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 09:54:57 2024 -0400
 
