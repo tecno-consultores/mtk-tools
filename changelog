@@ -1,4 +1,22 @@
-commit 450982865e320cb4d1713308ffa017fd7f6f0aa2 (HEAD -> main, origin/main)
+commit fc4ff79ce17237e2090a18bc9dca377089cdb45e (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 14:10:08 2024 -0400
+
+    * bugfix
+
+commit 58489de03a8d1f93862ab118bf9ed5bb32324dd4
+Author: Jesús Palencia <sinfallas@gmail.com>
+Date:   Tue Dec 17 14:01:43 2024 -0400
+
+    Update capsmanqr
+
+commit 8f3d2852a3b8ae134ce4c842c1119b44a1394e7c
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 11:59:07 2024 -0400
+
+    * changelog
+
+commit 450982865e320cb4d1713308ffa017fd7f6f0aa2
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 11:58:37 2024 -0400
 
@@ -28,7 +46,7 @@ Date:   Tue Dec 17 11:34:18 2024 -0400
 
     * limpieza
 
-commit 8ba5904cfe4a71bf2fc4f3e308e479b598f95b83
+commit 8ba5904cfe4a71bf2fc4f3e308e479b598f95b83 (tag: v0.1)
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 10:49:40 2024 -0400
 
