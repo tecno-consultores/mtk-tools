@@ -41,16 +41,16 @@ for i in ${ips[@]}; do
 	echo "=========================" >> $archi
 	echo "Creando Backup"
 	echo "Creando Backup" >> $archi
-	sshpass -p $sshpass $cssh -p $sshport $suser@$i "$back name=$i"
+	sshpass -p '$sshpass' $cssh -p $sshport $suser@$i "$back name=$i"
 	echo "Creando Terse"
 	echo "Creando Terse" >> $archi
-	sshpass -p $sshpass $cssh -p $sshport $suser@$i "$terse file=$i"
+	sshpass -p '$sshpass' $cssh -p $sshport $suser@$i "$terse file=$i"
 	echo "Descargando Backup"
 	echo "Descargando Backup" >> $archi
-	sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.backup donde/$i.backup
+	sshpass -p '$sshpass' $cscp -P $sshport $suser@$i:$i.backup donde/$i.backup
 	echo "Descargando Terse"
 	echo "Descargando Terse" >> $archi
-	sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.rsc donde/$i.rsc
+	sshpass -p '$sshpass' $cscp -P $sshport $suser@$i:$i.rsc donde/$i.rsc
 done
 
 echo "Comprimiendo"
