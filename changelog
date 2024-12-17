@@ -1,4 +1,16 @@
-commit 32e828b9c610c07a699f5ab688e9fc59508e045d (HEAD -> main, origin/main)
+commit 450982865e320cb4d1713308ffa017fd7f6f0aa2 (HEAD -> main, origin/main)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 11:58:37 2024 -0400
+
+    * variables para mtkback
+
+commit 0e70457319149ccefc6dc23f8fe2a979ef9f6816
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 11:48:44 2024 -0400
+
+    * changelog
+
+commit 32e828b9c610c07a699f5ab688e9fc59508e045d
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 11:48:32 2024 -0400
 
