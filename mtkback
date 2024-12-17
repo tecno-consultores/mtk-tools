@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Made by Sinfallas <sinfallas@yahoo.com>
+# Licence: GPL-2
+LC_ALL=C
+SECONDS=0
+LOCKFILE="/tmp/$(basename $0)_$(whoami)"
+LOCKFD="150"
+fecha=$(date +%d-%m-%Y)
+back="system backup save dont-encrypt=yes"
+terse="export terse compact show-sensitive"
+cssh="ssh -4 -C -q -o StrictHostKeyChecking=no -o ConnectTimeout=3"
+cscp="scp -4 -C -o ConnectTimeout=3"
+ctar="tar -czf"
+
+function clean_1() {
+	rm -f /tmp/$(basename $0)_$(whoami)
+	rm -f /run/$(basename $0).pid
+}
+
+function lock() {
+	echo {LOCKFD}>$LOCKFILE
+	flock -n $LOCKFD
+}
+
+function exit_error() {
+	echo "ERROR: Ya hay una instancia en ejecución. Saliendo"
+	exit 1
+}
+
+echo "$BASHPID" > /run/$(basename $0).pid
+trap "clean_1; exit" 0 1 2 3 9 15
+lock || exit_error
+clear
+
+echo -e "\e[00;1;92mCreando Backup\e[00m"
+$cssh $cuser@ip "$back name=sdghsdgh"
+
+echo -e "\e[00;1;92mCreando Terse\e[00m"
+$cssh $cuser@ip "$terse file=sdghsdgh"
+
+echo -e "\e[00;1;92mDescargando Backup\e[00m"
+$cscp -P 1234 $cuser@ip:sdghsdgh.backup donde/sdghsdgh
+
+echo -e "\e[00;1;92mDescargando Terse\e[00m"
+$cscp -P 1234 $cuser@ip:sdghsdgh.rsc donde/sdghsdgh
+
+echo -e "\e[00;1;92mComprimiendo\e[00m"
+$ctar $donde/done-$fecha.tar.gz donde/
+
+echo -e "\e[00;1;92mSubiendo al NAS\e[00m"
+$cscp $donde/*.tar.gz user@ip:/donde
+
+if [[ -z "$MAILSERVER" ]]; then
+	echo "No se enviara correo."
+else
+	swaks -4 --to $MAILTO --from $MAILFROM --server $MAILSERVER:$MAILPORT -tls --auth LOGIN --auth-user $MAILUSER --auth-password $MAILPASS --timeout 60s --header "Subject: Reporte de comparacion %DATE%" --body "Se adjunta el archivo." --attach-type "text/plain" --attach-name "resultado.txt" --attach @/app/resultado.txt
+fi
+
+echo "duracion $SECONDS segundos"
+echo -e "\e[00;1;92mFinalizado.\e[00m"
+exit 0

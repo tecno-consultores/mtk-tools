@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# Made by Sinfallas <sinfallas@yahoo.com>
+# Licence: GPL-2
+LC_ALL=C
+SECONDS=0
+LOCKFILE="/tmp/$(basename $0)_$(whoami)"
+LOCKFD="150"
+fecha=$(date +%d-%m-%Y)
+cssh="ssh -4 -C -q -o StrictHostKeyChecking=no -o ConnectTimeout=3 -p 22"
+archi="/app/claves.txt"
+donde="/app"
+ctar="tar -czf"
+qre="qrencode -c -m 1 -s 10 -l H -d 100"
+correo='swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass'
+
+function clean_1() {
+	rm -f /tmp/$(basename $0)_$(whoami)
+	rm -f /run/$(basename $0).pid
+}
+
+function lock() {
+	echo {LOCKFD}>$LOCKFILE
+	flock -n $LOCKFD
+}
+
+function exit_error() {
+	echo "ERROR: Ya hay una instancia en ejecución. Saliendo"
+	exit 1
+}
+
+echo "$BASHPID" > /run/$(basename $0).pid
+trap "clean_1; exit" 0 1 2 3 9 15
+lock || exit_error
+clear
+
+mkdir -p $donde/qr
+
+if [[ -z $1 ]]; then
+	for i in ${ips[@]}; do
+		clave=$(dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0 | tr -dc _A-Z-a-z-0-9 | cut -c 1-8)
+		echo "IP: $i"
+		echo "IP: $i" >> $archi
+		echo "Clave: $clave"
+		echo "Clave: $clave" >> $archi
+		echo "=========================" >> $archi
+		$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o $donde/qr/$i.png
+		$cssh $suser@$i "caps-man security set visita passphrase=$clave"
+	done
+else
+	for i in ${ips[@]}; do
+		echo "IP: $i"
+		echo "IP: $i" >> $archi
+		echo "Clave: $1"
+		echo "Clave: $1" >> $archi
+		echo "=========================" >> $archi
+		$qre "WIFI:T:WPA;S:$nssid;P:$1;;" -o $donde/qr/$i.png
+		$cssh $suser@$i "caps-man security set visita passphrase=$clave"
+	done
+fi
+
+
+$ctar $donde/qr-$fecha.tar.gz $donde/qr/
+
+echo "correo"
+$correo --output $donde/clavewifi.log --header "Subject: Cambio de clave de SSID visita %DATE%" --body "Se cambiaron las claves de los SSID VISITA, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
+echo "duracion $SECONDS segundos"
+echo "Finalizado."
+exit 0
