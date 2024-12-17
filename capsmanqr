@@ -76,6 +76,10 @@ fi
 if [[ -z "$sshport" ]]; then
 	ayuda
 fi
+
+if [[ -z "$sshpass" ]]; then
+	ayuda
+fi
 clear
 
 mkdir -p $donde/qr
@@ -88,7 +92,7 @@ for i in ${ips[@]}; do
 	echo "Clave: $clave" >> $archi
 	echo "=========================" >> $archi
 	$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o $donde/qr/$i.png
-	$cssh -p $sshport $suser@$i "caps-man security set visita passphrase=$clave"
+	sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man security set visita passphrase=$clave"
 done
 
 $ctar $donde/qr-$fecha.tar.gz $donde/qr/

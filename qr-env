@@ -1,4 +1,5 @@
 suser="USUARIO"
+sshpass="password"
 sshport="1234"
 cfrom="user@mail.com"
 cserver="mail.mail.com"
