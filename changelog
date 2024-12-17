@@ -1,4 +1,22 @@
-commit 0bda41f4cc08c35e7d65fcc29c1e7545155a23ba (HEAD -> main, origin/main, origin/HEAD)
+commit 5440e00cf282203324fece1ffe18b60379d09a41 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 15:56:23 2024 -0400
+
+    * dependencias
+
+commit c9a5feafe81d11dc7e268c7eda0734671faeeb71 (tag: v1.0)
+Author: Jesús Palencia <sinfallas@gmail.com>
+Date:   Tue Dec 17 15:29:58 2024 -0400
+
+    Update README.md
+
+commit f5fb09c2bb169dac88a631057c54e1451b257bba
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 15:22:04 2024 -0400
+
+    * changelog
+
+commit 0bda41f4cc08c35e7d65fcc29c1e7545155a23ba
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 15:21:57 2024 -0400
 
