@@ -71,10 +71,6 @@ if [[ -z "$cdestinos" ]]; then
 	ayuda
 fi
 
-if [[ -z "$nssid" ]]; then
-	ayuda
-fi
-
 if [[ -z "$cfrom" ]]; then
 	ayuda
 fi
@@ -93,10 +89,10 @@ for i in ${ips[@]}; do
 		sshpass -p $sshpass $cssh $suser@$i "$terse file="$i""
 		echo "Descargando Backup"
 		echo "Descargando Backup" >> $archi
-		sshpass -p $sshpass $cscp $suser@$i:$i.backup donde/$i.backup
+		sshpass -p $sshpass $cscp $suser@$i:$i.backup $donde/
 		echo "Descargando Terse"
 		echo "Descargando Terse" >> $archi
-		sshpass -p $sshpass $cscp $suser@$i:$i.rsc donde/$i.rs
+		sshpass -p $sshpass $cscp $suser@$i:$i.rsc $donde/
 	else
 		echo "Creando Backup"
 		echo "Creando Backup" >> $archi
@@ -106,15 +102,15 @@ for i in ${ips[@]}; do
 		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$terse file="$i""
 		echo "Descargando Backup"
 		echo "Descargando Backup" >> $archi
-		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.backup donde/$i.backup
+		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.backup $donde/
 		echo "Descargando Terse"
 		echo "Descargando Terse" >> $archi
-		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.rsc donde/$i.rs
+		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.rsc $donde/
 	fi
 done
 
 echo "Comprimiendo"
-$ctar $donde/backup-$fecha.tar.gz donde/
+$ctar $donde/backup-$fecha.tar.gz $donde/
 
 if [[ -z "$cserver" ]]; then
 	echo "No se enviara correo."
