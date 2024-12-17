@@ -1,4 +1,16 @@
-commit 4702d72ea4539803be2bbc775dc6c8a12a739264 (HEAD -> main, origin/main)
+commit 7cf3f84ddd2cab03ec4bda904faa6dbbcd9db979 (HEAD -> main, origin/main)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 09:40:11 2024 -0400
+
+    * dockerfile
+
+commit 45d70691a77f2f0004043a753cd9938f4d9423b0
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 09:35:10 2024 -0400
+
+    * changelog
+
+commit 4702d72ea4539803be2bbc775dc6c8a12a739264
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 09:34:59 2024 -0400
 
