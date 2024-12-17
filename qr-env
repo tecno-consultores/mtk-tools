@@ -1,9 +1,10 @@
 suser="USUARIO"
+sshport="1234"
 cfrom="user@mail.com"
 cserver="mail.mail.com"
 cport="587"
 cuser="user@mail.com"
-cpass="3664g5h"
+cpass="password"
 cdestinos="user1@mail.com,user2@mail.com"
 nssid="visita"
 ips=(192.168.0.1 192.168.0.2 192.168.0.3 192.168.0.4 192.168.0.5 192.168.0.6)

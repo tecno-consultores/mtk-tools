@@ -6,12 +6,12 @@ SECONDS=0
 LOCKFILE="/tmp/$(basename $0)_$(whoami)"
 LOCKFD="150"
 fecha=$(date +%d-%m-%Y)
-cssh="ssh -4 -C -q -o StrictHostKeyChecking=no -o ConnectTimeout=3 -p 22"
+cssh="ssh -4 -C -q -o StrictHostKeyChecking=no -o ConnectTimeout=3"
 archi="/app/claves.txt"
 donde="/app"
 ctar="tar -czf"
 qre="qrencode -c -m 1 -s 10 -l H -d 100"
-correo='swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass'
+correo='swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s'
 
 function clean_1() {
 	rm -f /tmp/$(basename $0)_$(whoami)
@@ -28,41 +28,73 @@ function exit_error() {
 	exit 1
 }
 
+function ayuda() {
+	echo "ERROR: faltan variables de entorno."
+	exit 1
+}
+
 echo "$BASHPID" > /run/$(basename $0).pid
 trap "clean_1; exit" 0 1 2 3 9 15
 lock || exit_error
+
+if [[ -z "$suser" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cfrom" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cserver" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cport" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cuser" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cpass" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cdestinos" ]]; then
+	ayuda
+fi
+
+if [[ -z "$nssid" ]]; then
+	ayuda
+fi
+
+if [[ -z "$ips" ]]; then
+	ayuda
+fi
+
+if [[ -z "$sshport" ]]; then
+	ayuda
+fi
 clear
 
 mkdir -p $donde/qr
 
-if [[ -z $1 ]]; then
-	for i in ${ips[@]}; do
-		clave=$(dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0 | tr -dc _A-Z-a-z-0-9 | cut -c 1-8)
-		echo "IP: $i"
-		echo "IP: $i" >> $archi
-		echo "Clave: $clave"
-		echo "Clave: $clave" >> $archi
-		echo "=========================" >> $archi
-		$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o $donde/qr/$i.png
-		$cssh $suser@$i "caps-man security set visita passphrase=$clave"
-	done
-else
-	for i in ${ips[@]}; do
-		echo "IP: $i"
-		echo "IP: $i" >> $archi
-		echo "Clave: $1"
-		echo "Clave: $1" >> $archi
-		echo "=========================" >> $archi
-		$qre "WIFI:T:WPA;S:$nssid;P:$1;;" -o $donde/qr/$i.png
-		$cssh $suser@$i "caps-man security set visita passphrase=$clave"
-	done
-fi
-
+for i in ${ips[@]}; do
+	clave=$(dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0 | tr -dc _A-Z-a-z-0-9 | cut -c 1-8)
+	echo "IP: $i"
+	echo "IP: $i" >> $archi
+	echo "Clave: $clave"
+	echo "Clave: $clave" >> $archi
+	echo "=========================" >> $archi
+	$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o $donde/qr/$i.png
+	$cssh -p $sshport $suser@$i "caps-man security set visita passphrase=$clave"
+done
 
 $ctar $donde/qr-$fecha.tar.gz $donde/qr/
 
 echo "correo"
-$correo --output $donde/clavewifi.log --header "Subject: Cambio de clave de SSID visita %DATE%" --body "Se cambiaron las claves de los SSID VISITA, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
+$correo --output $donde/clavewifi.log --header "Subject: Cambio de clave de SSID el %DATE%" --body "Se cambiaron las claves del SSID, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
 echo "duracion $SECONDS segundos"
 echo "Finalizado."
 exit 0
