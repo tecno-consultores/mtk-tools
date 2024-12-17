@@ -30,27 +30,87 @@ function exit_error() {
 	exit 1
 }
 
+function ayuda() {
+	echo "ERROR: faltan variables de entorno."
+	exit 1
+}
+
 echo "$BASHPID" > /run/$(basename $0).pid
 trap "clean_1; exit" 0 1 2 3 9 15
 lock || exit_error
+
+if [[ -z "$suser" ]]; then
+	ayuda
+fi
+
+if [[ -z "$sshport" ]]; then
+	ayuda
+fi
+
+if [[ -z "$sshpass" ]]; then
+	ayuda
+fi
+
+if [[ -z "$ips" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cport" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cuser" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cpass" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cdestinos" ]]; then
+	ayuda
+fi
+
+if [[ -z "$nssid" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cfrom" ]]; then
+	ayuda
+fi
 clear
 
 for i in ${ips[@]}; do
 	echo "IP: $i"
 	echo "IP: $i" >> $archi
 	echo "=========================" >> $archi
-	echo "Creando Backup"
-	echo "Creando Backup" >> $archi
-	sshpass -p '$sshpass' $cssh -p $sshport $suser@$i "$back name=$i"
-	echo "Creando Terse"
-	echo "Creando Terse" >> $archi
-	sshpass -p '$sshpass' $cssh -p $sshport $suser@$i "$terse file=$i"
-	echo "Descargando Backup"
-	echo "Descargando Backup" >> $archi
-	sshpass -p '$sshpass' $cscp -P $sshport $suser@$i:$i.backup donde/$i.backup
-	echo "Descargando Terse"
-	echo "Descargando Terse" >> $archi
-	sshpass -p '$sshpass' $cscp -P $sshport $suser@$i:$i.rsc donde/$i.rsc
+	if [[ "$sshport" == "22" ]]; then
+				echo "Creando Backup"
+		echo "Creando Backup" >> $archi
+		sshpass -p $sshpass $cssh $suser@$i "$back name="$i""
+		echo "Creando Terse"
+		echo "Creando Terse" >> $archi
+		sshpass -p $sshpass $cssh $suser@$i "$terse file="$i""
+		echo "Descargando Backup"
+		echo "Descargando Backup" >> $archi
+		sshpass -p $sshpass $cscp $suser@$i:$i.backup donde/$i.backup
+		echo "Descargando Terse"
+		echo "Descargando Terse" >> $archi
+		sshpass -p $sshpass $cscp $suser@$i:$i.rsc donde/$i.rs
+	else
+		echo "Creando Backup"
+		echo "Creando Backup" >> $archi
+		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$back name="$i""
+		echo "Creando Terse"
+		echo "Creando Terse" >> $archi
+		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$terse file="$i""
+		echo "Descargando Backup"
+		echo "Descargando Backup" >> $archi
+		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.backup donde/$i.backup
+		echo "Descargando Terse"
+		echo "Descargando Terse" >> $archi
+		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.rsc donde/$i.rs
+	fi
 done
 
 echo "Comprimiendo"
