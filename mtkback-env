@@ -1,4 +1,3 @@
-donde="/app"
 suser="USUARIO"
 sshpass="password"
 sshport="1234"
