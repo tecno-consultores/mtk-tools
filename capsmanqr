@@ -92,7 +92,7 @@ for i in ${ips[@]}; do
 	echo "Clave: $clave" >> $archi
 	echo "=========================" >> $archi
 	$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o $donde/qr/$i.png
-	sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man security set visita passphrase=$clave"
+	sshpass -p '$sshpass' $cssh -p $sshport $suser@$i "caps-man security set $nssid passphrase=$clave"
 done
 
 $ctar $donde/qr-$fecha.tar.gz $donde/qr/
