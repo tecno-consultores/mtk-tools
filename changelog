@@ -1,4 +1,16 @@
-commit 3e0dc985c58cf27d07b0b4e1ba75b2705eec50e6 (HEAD -> main, origin/main)
+commit 842aa42e845cdd16553d61b2fc0b51d886e6c0ec (HEAD -> main, origin/main)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 11:34:18 2024 -0400
+
+    * limpieza
+
+commit 8ba5904cfe4a71bf2fc4f3e308e479b598f95b83
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 10:49:40 2024 -0400
+
+    * changelog
+
+commit 3e0dc985c58cf27d07b0b4e1ba75b2705eec50e6
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 10:49:32 2024 -0400
 
