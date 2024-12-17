@@ -1,4 +1,5 @@
-remo="/app/remoto"
-eo="/tmp/eo"
-donde="/home/ansistemas4"
-cuser="ansible"
+donde="/app"
+suser="USUARIO"
+sshpass="password"
+sshport="1234"
+ips=(192.168.0.1 192.168.0.2 192.168.0.3 192.168.0.4 192.168.0.5 192.168.0.6)

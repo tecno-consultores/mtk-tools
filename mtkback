@@ -56,6 +56,18 @@ else
 	swaks -4 --to $MAILTO --from $MAILFROM --server $MAILSERVER:$MAILPORT -tls --auth LOGIN --auth-user $MAILUSER --auth-password $MAILPASS --timeout 60s --header "Subject: Reporte de comparacion %DATE%" --body "Se adjunta el archivo." --attach-type "text/plain" --attach-name "resultado.txt" --attach @/app/resultado.txt
 fi
 
+
+
+for i in ${ips[@]}; do
+	echo "IP: $i"
+	echo "IP: $i" >> $archi
+	echo "Clave: $clave"
+	echo "Clave: $clave" >> $archi
+	echo "=========================" >> $archi
+	$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o $donde/qr/$i.png
+	sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man security set visita passphrase=$clave"
+done
+
 echo "duracion $SECONDS segundos"
 echo -e "\e[00;1;92mFinalizado.\e[00m"
 exit 0
