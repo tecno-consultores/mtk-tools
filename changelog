@@ -1,4 +1,22 @@
-commit fe0c6a4c392c4731ec2fa8a9674a38ad11e4a1f2 (HEAD -> main, origin/main, origin/HEAD)
+commit a296fcc4c2f0f2d1e7ff613f98f8fb01dbedebf1 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Wed Dec 18 10:24:45 2024 -0400
+
+    * bugfix
+
+commit 70d30fff520c144b188871ab6a245b3db02629e4
+Author: Jesús Palencia <sinfallas@gmail.com>
+Date:   Tue Dec 17 16:30:52 2024 -0400
+
+    Update mtkback
+
+commit 66ac21c82336649465537c2bfbe3ed748e91b1bc
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Tue Dec 17 16:02:48 2024 -0400
+
+    * changelog
+
+commit fe0c6a4c392c4731ec2fa8a9674a38ad11e4a1f2
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 16:02:42 2024 -0400
 
@@ -124,7 +142,7 @@ Date:   Tue Dec 17 11:34:18 2024 -0400
 
     * limpieza
 
-commit 8ba5904cfe4a71bf2fc4f3e308e479b598f95b83 (tag: v0.1)
+commit 8ba5904cfe4a71bf2fc4f3e308e479b598f95b83
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Tue Dec 17 10:49:40 2024 -0400
 
