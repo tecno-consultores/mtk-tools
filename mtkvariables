@@ -10,6 +10,7 @@ ctar="tar -czf"
 back="system backup save dont-encrypt=yes"
 terse="export terse compact show-sensitive"
 mversion='"system resource print" | grep version:'
+nocaps="7.13"
 donde="/app"
 fecha=$(date +%d-%m-%Y)
 
