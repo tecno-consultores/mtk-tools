@@ -4,32 +4,12 @@
 LC_ALL=C
 SECONDS=0
 LOCKFILE="/tmp/$(basename $0)_$(whoami)"
-LOCKFD="150"
-fecha=$(date +%d-%m-%Y)
-cssh="ssh -4 -C -q -o StrictHostKeyChecking=no -o ConnectTimeout=3"
 archi="/app/claves.txt"
-donde="/app"
-ctar="tar -czf"
-qre="qrencode -c -m 1 -s 10 -l H -d 100"
+source /usr/bin/mtkvariables
 
 function clean_1() {
 	rm -f /tmp/$(basename $0)_$(whoami)
 	rm -f /run/$(basename $0).pid
-}
-
-function lock() {
-	echo {LOCKFD}>$LOCKFILE
-	flock -n $LOCKFD
-}
-
-function exit_error() {
-	echo "ERROR: Ya hay una instancia en ejecución. Saliendo"
-	exit 1
-}
-
-function ayuda() {
-	echo "ERROR: faltan variables de entorno."
-	exit 1
 }
 
 echo "$BASHPID" > /run/$(basename $0).pid

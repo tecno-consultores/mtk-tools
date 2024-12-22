@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Made by Sinfallas <sinfallas@yahoo.com>
+# Licence: GPL-2
+LC_ALL=C
+LOCKFD="150"
+qre="qrencode -c -m 1 -s 10 -l H -d 100"
+cssh="ssh -4 -C -q -o StrictHostKeyChecking=no -o ConnectTimeout=3"
+cscp="scp -4 -C -o ConnectTimeout=3"
+ctar="tar -czf"
+back="system backup save dont-encrypt=yes"
+terse="export terse compact show-sensitive"
+mversion='"system resource print" | grep version:'
+donde="/app"
+fecha=$(date +%d-%m-%Y)
+
+function lock() {
+	echo {LOCKFD}>$LOCKFILE
+	flock -n $LOCKFD
+}
+
+function exit_error() {
+	echo "ERROR: Ya hay una instancia en ejecución. Saliendo"
+	exit 1
+}
+
+function ayuda() {
+	echo "ERROR: faltan variables de entorno."
+	exit 1
+}

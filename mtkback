@@ -4,34 +4,12 @@
 LC_ALL=C
 SECONDS=0
 LOCKFILE="/tmp/$(basename $0)_$(whoami)"
-LOCKFD="150"
-fecha=$(date +%d-%m-%Y)
-back="system backup save dont-encrypt=yes"
-terse="export terse compact show-sensitive"
-cssh="ssh -4 -C -q -o StrictHostKeyChecking=no -o ConnectTimeout=3"
-cscp="scp -4 -C -o ConnectTimeout=3"
-ctar="tar -czf"
-donde="/app"
 archi="/app/log.txt"
+source /usr/bin/mtkvariables
 
 function clean_1() {
 	rm -f /tmp/$(basename $0)_$(whoami)
 	rm -f /run/$(basename $0).pid
-}
-
-function lock() {
-	echo {LOCKFD}>$LOCKFILE
-	flock -n $LOCKFD
-}
-
-function exit_error() {
-	echo "ERROR: Ya hay una instancia en ejecución. Saliendo"
-	exit 1
-}
-
-function ayuda() {
-	echo "ERROR: faltan variables de entorno."
-	exit 1
 }
 
 echo "$BASHPID" > /run/$(basename $0).pid
