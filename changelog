@@ -1,4 +1,22 @@
-commit a296fcc4c2f0f2d1e7ff613f98f8fb01dbedebf1 (HEAD -> main, origin/main, origin/HEAD)
+commit 5c87cfb3c3af6cd30fbea089f44f5cda92456920 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Sun Dec 22 13:42:58 2024 -0400
+
+    * archivo de variables comunes
+
+commit f46d9891bbe0381fd9e3937cbaf3765be20ef304
+Author: Jesús Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 18 15:02:43 2024 -0400
+
+    Update README.md
+
+commit c987282aedc064ec3de9577c2237f21d012fd61d (tag: v1.1)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Wed Dec 18 10:24:53 2024 -0400
+
+    * changelog
+
+commit a296fcc4c2f0f2d1e7ff613f98f8fb01dbedebf1
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Wed Dec 18 10:24:45 2024 -0400
 
