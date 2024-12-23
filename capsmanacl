@@ -63,7 +63,7 @@ for i in ${ips[@]}; do
 	queversion
 	if [[ "$wcmd" == "caps" ]]; then
 		if [[ "$sshport" == "22" ]]; then
-			# eliminar todas las entradas con el comentario
+			sshpass -p $sshpass $cssh $suser@$i "caps-man access-list remove [find comment="$ssid"]"
 			while read -r mac action ssid; do
 				echo "$mac", "$action", "$ssid"
 				sshpass -p $sshpass $cssh $suser@$i "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
@@ -71,7 +71,7 @@ for i in ${ips[@]}; do
 			done < ./maclist.txt
 			sshpass -p $sshpass $cssh $suser@$i "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="$ssid" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
 		else
-			# eliminar todas las entradas con el comentario
+			sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man access-list remove [find comment="$ssid"]"
 			while read -r mac action ssid; do
 				echo "$mac", "$action", "$ssid"
 				sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
