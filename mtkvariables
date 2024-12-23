@@ -9,10 +9,10 @@ cscp="scp -4 -C -o ConnectTimeout=3"
 ctar="tar -czf"
 back="system backup save dont-encrypt=yes"
 terse="export terse compact show-sensitive"
-mversion='"system resource print" | grep version:'
-nocaps="7.13"
+nocaps="713"
 donde="/app"
 fecha=$(date +%d-%m-%Y)
+cmdcorreo=$(swaks -4 --to ${cdestinos} --from ${cfrom} --server ${cserver}:${cport} -tls --auth LOGIN --auth-user ${cuser} --auth-password ${cpass} --timeout 60s)
 
 function lock () {
 	echo {LOCKFD}>$LOCKFILE
@@ -28,3 +28,18 @@ function ayuda () {
 	echo "ERROR: faltan variables de entorno."
 	exit 1
 }
+
+if [[ "$sshport" == "22" ]]; then
+	wver=$(sshpass -p ${sshpass} ${cssh} ${suser}@${sip} "system resource print" | grep version: | cut -c 22-25)
+	xver=$(echo "${wver//.}")
+else
+	wver=$(sshpass -p ${sshpass} ${cssh} -p ${sshport} ${suser}@${sip} "system resource print" | grep version: | cut -c 22-25)
+	xver=$(echo "${wver//.}")
+fi
+
+if (( $xver < $nocaps )); then
+	wcmd="caps"
+else
+	wcmd="wifi"
+fi
+

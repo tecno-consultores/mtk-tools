@@ -59,31 +59,34 @@ fi
 if [[ -z "$sshpass" ]]; then
 	ayuda
 fi
+mkdir -p $donde/qr
 clear
 
-mkdir -p $donde/qr
-
-for i in ${ips[@]}; do
-	clave=$(dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0 | tr -dc _A-Z-a-z-0-9 | cut -c 1-8)
-	echo "IP: $i"
-	echo "IP: $i" >> $archi
-	echo "Clave: $clave"
-	echo "Clave: $clave" >> $archi
-	echo "=========================" >> $archi
-	$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o $donde/qr/$i.png
-	if [[ "$sshport" == "22" ]]; then
-		sshpass -p $sshpass $cssh $suser@$i "caps-man security set "$nssid" passphrase="$clave""
-	else
-		sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man security set "$nssid" passphrase="$clave""
-	fi
-done
+if [[ "$wcmd" == "caps" ]]; then
+	for i in ${ips[@]}; do
+		clave=$(dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0 | tr -dc _A-Z-a-z-0-9 | cut -c 1-8)
+		echo "IP: $i"
+		echo "IP: $i" >> $archi
+		echo "Clave: $clave"
+		echo "Clave: $clave" >> $archi
+		echo "=========================" >> $archi
+		$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o $donde/qr/$i.png
+		if [[ "$sshport" == "22" ]]; then
+			sshpass -p $sshpass $cssh $suser@$i "caps-man security set "$nssid" passphrase="$clave""
+		else
+			sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man security set "$nssid" passphrase="$clave""
+		fi
+	done
+else
+	echo "por hacer"
+fi
 
 echo "comprimiendo"
 echo "comprimiendo" >> $archi
 $ctar $donde/qr-$fecha.tar.gz $donde/qr/
 echo "correo"
 echo "correo" >> $archi
-swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s --header "Subject: Cambio de clave de SSID el %DATE%" --body "Se cambiaron las claves del SSID, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
+$cmdcorreo --header "Subject: Cambio de clave de SSID el %DATE%" --body "Se cambiaron las claves del SSID, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
 echo "duracion $SECONDS segundos"
 echo "Finalizado."
 exit 0

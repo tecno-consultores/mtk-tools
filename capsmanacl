@@ -59,18 +59,20 @@ if ! [[ -f ./maclist.txt ]]; then
 	ayuda
 fi
 
-# eliminar todas las entradas con el comentario
-
-while read -r mac action ssid; do
-	echo "$mac", "$action", "$ssid"
-	sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
-	echo "==================="
-done < ./maclist.txt
-
-sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="$ssid" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
+if [[ "$wcmd" == "caps" ]]; then
+	# eliminar todas las entradas con el comentario
+	while read -r mac action ssid; do
+		echo "$mac", "$action", "$ssid"
+		sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
+		echo "==================="
+	done < ./maclist.txt
+	sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="$ssid" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
+else
+	echo "por hacer"
+fi
 
 echo "correo"
-swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s --header "Se modificaron las ACL de acceso inalambrico el %DATE%" --body "Se modificaron las ACL de acceso inalambrico, se adjunta el archivo." --attach-type "text/plain" --attach-name "maclist.txt" --attach @/app/maclist.txt
+$cmdcorreo --header "Se modificaron las ACL de acceso inalambrico el %DATE%" --body "Se modificaron las ACL de acceso inalambrico, se adjunta el archivo." --attach-type "text/plain" --attach-name "maclist.txt" --attach @/app/maclist.txt
 
 echo "duracion $SECONDS segundos"
 echo "Finalizado."
