@@ -29,17 +29,17 @@ function ayuda () {
 	exit 1
 }
 
-if [[ "$sshport" == "22" ]]; then
-	wver=$(sshpass -p ${sshpass} ${cssh} ${suser}@${sip} "system resource print" | grep version: | cut -c 22-25)
-	xver=$(echo "${wver//.}")
-else
-	wver=$(sshpass -p ${sshpass} ${cssh} -p ${sshport} ${suser}@${sip} "system resource print" | grep version: | cut -c 22-25)
-	xver=$(echo "${wver//.}")
-fi
-
-if (( $xver < $nocaps )); then
-	wcmd="caps"
-else
-	wcmd="wifi"
-fi
-
+function queversion () {
+	if [[ "$sshport" == "22" ]]; then
+		wver=$(sshpass -p ${sshpass} ${cssh} ${suser}@${i} "system resource print" | grep version: | cut -c 22-25)
+		xver=$(echo "${wver//.}")
+	else
+		wver=$(sshpass -p ${sshpass} ${cssh} -p ${sshport} ${suser}@${i} "system resource print" | grep version: | cut -c 22-25)
+		xver=$(echo "${wver//.}")
+	fi
+	if (( $xver < $nocaps )); then
+		wcmd="caps"
+	else
+		wcmd="wifi"
+	fi
+}
