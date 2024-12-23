@@ -14,17 +14,17 @@ nocaps="7.13"
 donde="/app"
 fecha=$(date +%d-%m-%Y)
 
-function lock() {
+function lock () {
 	echo {LOCKFD}>$LOCKFILE
 	flock -n $LOCKFD
 }
 
-function exit_error() {
+function exit_error () {
 	echo "ERROR: Ya hay una instancia en ejecución. Saliendo"
 	exit 1
 }
 
-function ayuda() {
+function ayuda () {
 	echo "ERROR: faltan variables de entorno."
 	exit 1
 }

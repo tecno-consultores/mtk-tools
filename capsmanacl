@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# Made by Sinfallas <sinfallas@yahoo.com>
+# Licence: GPL-2
+LC_ALL=C
+SECONDS=0
+LOCKFILE="/tmp/$(basename $0)_$(whoami)"
+
+source /usr/bin/mtkvariables
+
+function clean_1() {
+	rm -f /tmp/$(basename $0)_$(whoami)
+	rm -f /run/$(basename $0).pid
+}
+
+echo "$BASHPID" > /run/$(basename $0).pid
+trap "clean_1; exit" 0 1 2 3 9 15
+lock || exit_error
+
+if [[ -z "$suser" ]]; then
+	ayuda
+fi
+
+if [[ -z "$sshpass" ]]; then
+	ayuda
+fi
+
+if [[ -z "$sshport" ]]; then
+	ayuda
+fi
+
+if [[ -z "$sip" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cfrom" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cserver" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cport" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cuser" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cpass" ]]; then
+	ayuda
+fi
+
+if [[ -z "$cdestinos" ]]; then
+	ayuda
+fi
+
+if ! [[ -f /maclist.txt ]]; then
+	ayuda
+fi
+
+# eliminar todas las entradas con el comentario
+
+while read -r mac action ssid; do
+	echo "$mac", "$action", "$ssid"
+	sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="mtk-tools" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
+	echo "==================="
+done < ./maclist.txt
+
+sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="mtk-tools" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
+
+# enviar correo
+echo "correo"
+#swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s --output $donde/clavewifi.log --header "Subject: Cambio de clave de SSID el %DATE%" --body "Se cambiaron las claves del SSID, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
+
+
+echo "duracion $SECONDS segundos"
+echo "Finalizado."
