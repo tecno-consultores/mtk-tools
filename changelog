@@ -1,4 +1,16 @@
-commit 917923a0975b46a17ae952df8b2bf457cff920ec (HEAD -> main, origin/main, origin/HEAD)
+commit dbe8e9cdf57d9594c45c4bfb995cff1064a6a38e (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Mon Dec 23 14:01:54 2024 -0400
+
+    * bugfix
+
+commit 3564acbaa46fd5cd6edaeaa967263e244026396c
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Mon Dec 23 13:32:47 2024 -0400
+
+    * changelog
+
+commit 917923a0975b46a17ae952df8b2bf457cff920ec
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Mon Dec 23 13:32:40 2024 -0400
 
