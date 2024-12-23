@@ -1,4 +1,16 @@
-commit dbe8e9cdf57d9594c45c4bfb995cff1064a6a38e (HEAD -> main, origin/main, origin/HEAD)
+commit 303892d6ad78787837564007b1be9609beb20074 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Mon Dec 23 14:19:26 2024 -0400
+
+    * nested conditionals
+
+commit 1cb3976d8f9bab77b3836f3244624a3acb6193fa
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Mon Dec 23 14:02:00 2024 -0400
+
+    * changelog
+
+commit dbe8e9cdf57d9594c45c4bfb995cff1064a6a38e
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Mon Dec 23 14:01:54 2024 -0400
 
