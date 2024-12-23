@@ -4,7 +4,6 @@
 LC_ALL=C
 SECONDS=0
 LOCKFILE="/tmp/$(basename $0)_$(whoami)"
-
 source /usr/bin/mtkvariables
 
 function clean_1() {
@@ -56,7 +55,7 @@ if [[ -z "$cdestinos" ]]; then
 	ayuda
 fi
 
-if ! [[ -f /maclist.txt ]]; then
+if ! [[ -f ./maclist.txt ]]; then
 	ayuda
 fi
 
@@ -64,16 +63,14 @@ fi
 
 while read -r mac action ssid; do
 	echo "$mac", "$action", "$ssid"
-	sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="mtk-tools" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
+	sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
 	echo "==================="
 done < ./maclist.txt
 
-sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="mtk-tools" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
+sshpass -p $sshpass $cssh $suser@$sip "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="$ssid" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
 
-# enviar correo
 echo "correo"
-#swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s --output $donde/clavewifi.log --header "Subject: Cambio de clave de SSID el %DATE%" --body "Se cambiaron las claves del SSID, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
-
+swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s --header "Se modificaron las ACL de acceso inalambrico el %DATE%" --body "Se modificaron las ACL de acceso inalambrico, se adjunta el archivo." --attach-type "text/plain" --attach-name "maclist.txt" --attach @/app/maclist.txt
 
 echo "duracion $SECONDS segundos"
 echo "Finalizado."
