@@ -1,4 +1,16 @@
-commit 68c300309ce62ee83b8eeeacba788532c01fe170 (HEAD -> main, origin/main, origin/HEAD)
+commit c386a44d8cfe352754683785340e904b9d52aaf4 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Mon Dec 23 09:47:32 2024 -0400
+
+    * orden
+
+commit 7adb85ddfacc4b58ef82f1541f0be334b3ce2418
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Mon Dec 23 09:31:20 2024 -0400
+
+    * changelog
+
+commit 68c300309ce62ee83b8eeeacba788532c01fe170
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Mon Dec 23 09:31:12 2024 -0400
 
