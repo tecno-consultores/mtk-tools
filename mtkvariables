@@ -11,8 +11,8 @@ back="system backup save dont-encrypt=yes"
 terse="export terse compact show-sensitive"
 nocaps="713"
 donde="/app"
+cmdcorreo="swaks -4 --to ${cdestinos} --from ${cfrom} --server ${cserver}:${cport} -tls --auth LOGIN --auth-user ${cuser} --auth-password ${cpass} --timeout 60s"
 fecha=$(date +%d-%m-%Y)
-cmdcorreo=$(swaks -4 --to ${cdestinos} --from ${cfrom} --server ${cserver}:${cport} -tls --auth LOGIN --auth-user ${cuser} --auth-password ${cpass} --timeout 60s)
 
 function lock () {
 	echo {LOCKFD}>$LOCKFILE
