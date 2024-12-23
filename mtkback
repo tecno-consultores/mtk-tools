@@ -53,42 +53,38 @@ if [[ -z "$cfrom" ]]; then
 fi
 clear
 
-if [[ "$wcmd" == "caps" ]]; then
-	for i in ${ips[@]}; do
-		echo "IP: $i"
-		echo "IP: $i" >> $archi
-		echo "=========================" >> $archi
-		if [[ "$sshport" == "22" ]]; then
-			echo "Creando Backup"
-			echo "Creando Backup" >> $archi
-			sshpass -p $sshpass $cssh $suser@$i "$back name="$i""
-			echo "Creando Terse"
-			echo "Creando Terse" >> $archi
-			sshpass -p $sshpass $cssh $suser@$i "$terse file="$i""
-			echo "Descargando Backup"
-			echo "Descargando Backup" >> $archi
-			sshpass -p $sshpass $cscp $suser@$i:$i.backup $donde/
-			echo "Descargando Terse"
-			echo "Descargando Terse" >> $archi
-			sshpass -p $sshpass $cscp $suser@$i:$i.rsc $donde/
-		else
-			echo "Creando Backup"
-			echo "Creando Backup" >> $archi
-			sshpass -p $sshpass $cssh -p $sshport $suser@$i "$back name="$i""
-			echo "Creando Terse"
-			echo "Creando Terse" >> $archi
-			sshpass -p $sshpass $cssh -p $sshport $suser@$i "$terse file="$i""
-			echo "Descargando Backup"
-			echo "Descargando Backup" >> $archi
-			sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.backup $donde/
-			echo "Descargando Terse"
-			echo "Descargando Terse" >> $archi
-			sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.rsc $donde/
-		fi
-	done
-else
-	echo "por hacer"
-fi
+for i in ${ips[@]}; do
+	echo "IP: $i"
+	echo "IP: $i" >> $archi
+	echo "=========================" >> $archi
+	if [[ "$sshport" == "22" ]]; then
+		echo "Creando Backup"
+		echo "Creando Backup" >> $archi
+		sshpass -p $sshpass $cssh $suser@$i "$back name="$i""
+		echo "Creando Terse"
+		echo "Creando Terse" >> $archi
+		sshpass -p $sshpass $cssh $suser@$i "$terse file="$i""
+		echo "Descargando Backup"
+		echo "Descargando Backup" >> $archi
+		sshpass -p $sshpass $cscp $suser@$i:$i.backup $donde/
+		echo "Descargando Terse"
+		echo "Descargando Terse" >> $archi
+		sshpass -p $sshpass $cscp $suser@$i:$i.rsc $donde/
+	else
+		echo "Creando Backup"
+		echo "Creando Backup" >> $archi
+		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$back name="$i""
+		echo "Creando Terse"
+		echo "Creando Terse" >> $archi
+		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$terse file="$i""
+		echo "Descargando Backup"
+		echo "Descargando Backup" >> $archi
+		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.backup $donde/
+		echo "Descargando Terse"
+		echo "Descargando Terse" >> $archi
+		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.rsc $donde/
+	fi
+done
 
 echo "Comprimiendo"
 $ctar $donde/backup-$fecha.tar.gz $donde/
