@@ -83,7 +83,7 @@ echo "comprimiendo" >> $archi
 $ctar $donde/qr-$fecha.tar.gz $donde/qr/
 echo "correo"
 echo "correo" >> $archi
-swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s --output $donde/clavewifi.log --header "Subject: Cambio de clave de SSID el %DATE%" --body "Se cambiaron las claves del SSID, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
+swaks -4 --to $cdestinos --from $cfrom --server $cserver:$cport -tls --auth LOGIN --auth-user $cuser --auth-password $cpass --timeout 60s --header "Subject: Cambio de clave de SSID el %DATE%" --body "Se cambiaron las claves del SSID, se adjunta el archivo." --attach-type "text/plain" --attach-name "claves.txt" --attach @/app/claves.txt --attach-type "application/x-compressed-tar" --attach-name "qr-$fecha.tar.gz" --attach @/app/qr-$fecha.tar.gz
 echo "duracion $SECONDS segundos"
 echo "Finalizado."
 exit 0
