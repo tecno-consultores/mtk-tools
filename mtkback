@@ -55,44 +55,44 @@ clear
 
 for i in ${ips[@]}; do
 	echo "IP: $i"
-	echo "IP: $i" >> $archi
-	echo "=========================" >> $archi
+	echo "IP: $i" >> "$archi"
+	echo "=========================" >> "$archi"
 	if [[ "$sshport" == "22" ]]; then
 		echo "Creando Backup"
-		echo "Creando Backup" >> $archi
-		sshpass -p $sshpass $cssh $suser@$i "$back name="$i""
+		echo "Creando Backup" >> "$archi"
+		sshpass -p "$sshpass" "$cssh" "$suser"@"$i" "$back name="$i""
 		echo "Creando Terse"
-		echo "Creando Terse" >> $archi
-		sshpass -p $sshpass $cssh $suser@$i "$terse file="$i""
+		echo "Creando Terse" >> "$archi"
+		sshpass -p "$sshpass" "$cssh" "$suser"@"$i" "$terse file="$i""
 		echo "Descargando Backup"
-		echo "Descargando Backup" >> $archi
-		sshpass -p $sshpass $cscp $suser@$i:$i.backup $donde/
+		echo "Descargando Backup" >> "$archi"
+		sshpass -p "$sshpass" "$cscp" "$suser"@"$i":"$i".backup "$donde"/
 		echo "Descargando Terse"
-		echo "Descargando Terse" >> $archi
-		sshpass -p $sshpass $cscp $suser@$i:$i.rsc $donde/
+		echo "Descargando Terse" >> "$archi"
+		sshpass -p "$sshpass" "$cscp" "$suser"@"$i":"$i".rsc "$donde"/
 	else
 		echo "Creando Backup"
-		echo "Creando Backup" >> $archi
-		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$back name="$i""
+		echo "Creando Backup" >> "$archi"
+		sshpass -p "$sshpass" "$cssh" -p "$sshport" "$suser"@"$i" "$back name="$i""
 		echo "Creando Terse"
-		echo "Creando Terse" >> $archi
-		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$terse file="$i""
+		echo "Creando Terse" >> "$archi"
+		sshpass -p "$sshpass" "$cssh" -p "$sshport" "$suser"@"$i" "$terse file="$i""
 		echo "Descargando Backup"
 		echo "Descargando Backup" >> $archi
-		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.backup $donde/
+		sshpass -p "$sshpass" "$cscp" -P "$sshport" "$suser"@"$i":"$i".backup "$donde"/
 		echo "Descargando Terse"
-		echo "Descargando Terse" >> $archi
-		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.rsc $donde/
+		echo "Descargando Terse" >> "$archi"
+		sshpass -p "$sshpass" "$cscp" -P "$sshport" "$suser"@"$i":"$i".rsc "$donde"/
 	fi
 done
 
 echo "Comprimiendo"
-$ctar $donde/backup-$fecha.tar.gz $donde/
+"$ctar" "$donde"/backup-"$fecha".tar.gz "$donde"/
 
 if [[ -z "$cserver" ]]; then
 	echo "No se enviara correo."
 else
-	$cmdcorreo --header "Subject: Respaldo de configuracion de los Mikrotik en %DATE%" --body "Se adjunta el archivo." --attach-type "application/x-compressed-tar" --attach-name "backup-$fecha.tar.gz" --attach @/app/backup-$fecha.tar.gz
+	"$cmdcorreo" --header "Subject: Respaldo de configuracion de los Mikrotik en %DATE%" --body "Se adjunta el archivo." --attach-type "application/x-compressed-tar" --attach-name "backup-$fecha.tar.gz" --attach @/app/backup-$fecha.tar.gz
 fi
 
 echo "duracion $SECONDS segundos"
