@@ -1,4 +1,70 @@
-commit c2e1f57110c03fc6882bcab39c5b65aa760c0025 (HEAD -> main, origin/main, origin/HEAD)
+commit f4403f4799c4baf883d593db03aa120bb1013354 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 15:50:08 2024 -0400
+
+    * casi
+
+commit 0496cd4d25ffb8030d934445f837fbbee2aa5e3f
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 13:24:28 2024 -0400
+
+    * bugfix
+
+commit a6f1b3472d54e226023255da1d7fcb6f11afd748
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 13:19:31 2024 -0400
+
+    * bugfix
+
+commit 0a4f89031938c7e96f53453eed246bedc69cd027
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 13:01:06 2024 -0400
+
+    * comillas
+
+commit 14c048c868c3408d57fb8ebe3e0eeaebbc64b54e
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 12:54:19 2024 -0400
+
+    * comillas
+
+commit 50bff915352462a63acf7e890da1a75052398a8b
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 12:13:17 2024 -0400
+
+    * comando wifi
+
+commit aff89e75402a521a73ec751be5c10ad88281362a
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 12:03:59 2024 -0400
+
+    * se mejora el numero de version para evitar conflictos
+
+commit 86248a2d1c42c88b51bbf551e38dde8f1c7d5915
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 12:01:15 2024 -0400
+
+    * mensaje
+
+commit 50244ba707cc1b2cf7373a7ddf52aeed880825a8
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 11:59:08 2024 -0400
+
+    * bugfix
+
+commit 516363b92a3cc7c23db99f003f867b5a23ecce5b
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 11:24:05 2024 -0400
+
+    bugfix
+
+commit c1b327e1e3a39e7da446772e5eef305db15f45ad
+Author: Jesus Palencia <ansistemas4@invertropoli.com>
+Date:   Mon Dec 23 15:17:20 2024 -0400
+
+    * changelog
+
+commit c2e1f57110c03fc6882bcab39c5b65aa760c0025
 Author: Jesus Palencia <ansistemas4@invertropoli.com>
 Date:   Mon Dec 23 15:17:10 2024 -0400
 
