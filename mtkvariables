@@ -45,3 +45,20 @@ function queversion () {
 	echo "version: $xver"
 	echo "comando: $wcmd"
 }
+
+function queversion2 () {
+	if [[ "$sshport" == "22" ]]; then
+		wver=$(sshpass -p ${sshpass} ${cssh} ${suser}@${ips} "system resource print" | grep version: | awk '{print $2}')
+		xver=$(echo "${wver//.}")
+	else
+		wver=$(sshpass -p ${sshpass} ${cssh} -p ${sshport} ${suser}@${ips} "system resource print" | grep version: | awk '{print $2}')
+		xver=$(echo "${wver//.}")
+	fi
+	if (( $xver < $nocaps )); then
+		wcmd="caps"
+	else
+		wcmd="wifi"
+	fi
+	echo "version: $xver"
+	echo "comando: $wcmd"
+}
