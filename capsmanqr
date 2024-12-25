@@ -78,7 +78,11 @@ for i in ${ips[@]}; do
 			sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man security set "$nssid" passphrase="$clave""
 		fi
 	else
-		echo "por hacer"
+		if [[ "$sshport" == "22" ]]; then
+			sshpass -p $sshpass $cssh $suser@$i "interface wifi security set "$nssid" passphrase="$clave""
+		else
+			sshpass -p $sshpass $cssh -p $sshport $suser@$i "interface wifi security set "$nssid" passphrase="$clave""
+		fi
 	fi
 done
 
