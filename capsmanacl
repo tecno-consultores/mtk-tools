@@ -63,29 +63,45 @@ for i in ${ips[@]}; do
 	queversion
 	if [[ "$wcmd" == "caps" ]]; then
 		if [[ "$sshport" == "22" ]]; then
-			sshpass -p $sshpass $cssh $suser@$i "caps-man access-list remove [find comment="$ssid"]"
+			sshpass -p "$sshpass" "$cssh" "$suser"@"$i" "caps-man access-list remove [find comment="$ssid"]"
 			while read -r mac action ssid; do
-				echo "$mac", "$action", "$ssid"
-				sshpass -p $sshpass $cssh $suser@$i "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
+				echo "$mac, $action, $ssid"
+				sshpass -p "$sshpass" "$cssh" "$suser"@"$i" "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
 				echo "==================="
 			done < ./maclist.txt
-			sshpass -p $sshpass $cssh $suser@$i "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="$ssid" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
+			sshpass -p "$sshpass" "$cssh" "$suser"@"$i" "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="$ssid" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
 		else
-			sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man access-list remove [find comment="$ssid"]"
+			sshpass -p "$sshpass" "$cssh" -p "$sshport" "$suser"@"$i" "caps-man access-list remove [find comment="$ssid"]"
 			while read -r mac action ssid; do
-				echo "$mac", "$action", "$ssid"
-				sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
+				echo "$mac, $action, $ssid"
+				sshpass -p "$sshpass" "$cssh" -p "$sshport" "$suser"@"$i" "caps-man access-list add action="$action" allow-signal-out-of-range=10s comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
 				echo "==================="
 			done < ./maclist.txt
-			sshpass -p $sshpass $cssh -p $sshport $suser@$i "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="$ssid" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
+			sshpass -p "$sshpass" "$cssh" -p "$sshport" "$suser"@"$i" "caps-man access-list add action=reject allow-signal-out-of-range=10s comment="$ssid" disabled=no mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
 		fi
 	else
-		echo "por hacer"
+		if [[ "$sshport" == "22" ]]; then
+			sshpass -p "$sshpass" "$cssh" "$suser"@"$i" "interface wifi access-list remove [find comment="$ssid"]"
+			while read -r mac action ssid; do
+				echo "$mac, $action, $ssid"
+				sshpass -p "$sshpass" "$cssh" "$suser"@"$i" "interface wifi access-list add action="$action" comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
+				echo "==================="
+			done < ./maclist.txt
+			sshpass -p "$sshpass" "$cssh" "$suser"@"$i" "interface wifi access-list add action=reject comment="$ssid" disabled=no interface=all mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
+		else
+			sshpass -p "$sshpass" "$cssh" -p "$sshport" "$suser"@"$i" "interface wifi access-list remove [find comment="$ssid"]"
+			while read -r mac action ssid; do
+				echo "$mac, $action, $ssid"
+				sshpass -p "$sshpass" "$cssh" -p "$sshport" "$suser"@"$i" "interface wifi access-list add action="$action" comment="$ssid" disabled=no interface=all mac-address=$mac ssid-regexp="$ssid" place-before=1"
+				echo "==================="
+			done < ./maclist.txt
+			sshpass -p "$sshpass" "$cssh" -p "$sshport" "$suser"@"$i" "interface wifi access-list add action=reject comment="$ssid" disabled=no interface=all mac-address=00:00:00:00:00:00 mac-address-mask=00:00:00:00:00:00 ssid-regexp="$ssid""
+		fi
 	fi
 done
 
 echo "correo"
-$cmdcorreo --header "Se modificaron las ACL de acceso inalambrico el %DATE%" --body "Se modificaron las ACL de acceso inalambrico, se adjunta el archivo." --attach-type "text/plain" --attach-name "maclist.txt" --attach @/app/maclist.txt
+"$cmdcorreo" --header "Se modificaron las ACL de acceso inalambrico el %DATE%" --body "Se modificaron las ACL de acceso inalambrico, se adjunta el archivo." --attach-type "text/plain" --attach-name "maclist.txt" --attach @/app/maclist.txt
 
 echo "duracion $SECONDS segundos"
 echo "Finalizado."
