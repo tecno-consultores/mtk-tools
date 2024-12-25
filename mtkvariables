@@ -42,6 +42,6 @@ function queversion () {
 	else
 		wcmd="wifi"
 	fi
-	echo $wcmd
-	echo $xver
+	echo "version: $xver"
+	echo "comando: $wcmd"
 }
