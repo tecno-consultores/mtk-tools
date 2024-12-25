@@ -15,8 +15,8 @@ cmdcorreo="swaks -4 --to ${cdestinos} --from ${cfrom} --server ${cserver}:${cpor
 fecha=$(date +%d-%m-%Y)
 
 function lock () {
-	echo {LOCKFD}>"$LOCKFILE"
-	flock -n "$LOCKFD"
+	echo {LOCKFD}>$LOCKFILE
+	flock -n $LOCKFD
 }
 
 function exit_error () {
