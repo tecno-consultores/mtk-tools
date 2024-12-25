@@ -27,7 +27,7 @@ if [[ -z "$sshport" ]]; then
 	ayuda
 fi
 
-if [[ -z "$sip" ]]; then
+if [[ -z "$ips" ]]; then
 	ayuda
 fi
 
