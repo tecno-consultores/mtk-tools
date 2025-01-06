@@ -1,4 +1,16 @@
-commit 0c7a0c12ad47ec3270f03251325b788ebd4149f0 (HEAD -> main, origin/main, origin/HEAD)
+commit dc974b025deca7b043d3382be14b3c2860040b0d (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Mon Jan 6 19:51:35 2025 -0400
+
+    * github
+
+commit cc4d682fa8b87d1097dbc7e1a57d8dbb57100cab (tag: v2.1)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Mon Jan 6 19:08:02 2025 -0400
+
+    * changelog
+
+commit 0c7a0c12ad47ec3270f03251325b788ebd4149f0
 Author: Jesus Palencia <sinfallas@gmail.com>
 Date:   Mon Jan 6 19:07:46 2025 -0400
 
