@@ -1,4 +1,28 @@
-commit f4403f4799c4baf883d593db03aa120bb1013354 (HEAD -> main, origin/main, origin/HEAD)
+commit 0c7a0c12ad47ec3270f03251325b788ebd4149f0 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Mon Jan 6 19:07:46 2025 -0400
+
+    * Sara: RouterOS Security Inspector
+
+commit a347134bc7e1dea3b84cc102b65bcbc3ba83e4b8
+Author: Jesús Palencia <sinfallas@gmail.com>
+Date:   Tue Dec 31 18:23:21 2024 -0400
+
+    Update README.md
+
+commit 1cb893f52c78ee6f420430a7ad20a30c3a464a3d
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 16:00:55 2024 -0400
+
+    * readme
+
+commit 827adae008c831ddb7eea4b55eb016068708e7b3 (tag: v2.0)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Wed Dec 25 15:54:20 2024 -0400
+
+    * changelog
+
+commit f4403f4799c4baf883d593db03aa120bb1013354
 Author: Jesus Palencia <sinfallas@gmail.com>
 Date:   Wed Dec 25 15:50:08 2024 -0400
 
