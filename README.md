@@ -23,3 +23,10 @@ First place the information necessary in the **mtkback-env** file, then mount th
 ```bash
 docker run -it --rm --name backup --pull always --env-file ./mtkback-env --volume ./:/app sinfallas/mtk-tools:latest mtkback
 ```
+
+# Run Sara: RouterOS Security Inspector
+
+First place the your **.rsc** file, then mount the folder that contains said file as a volume in /app.
+```bash
+docker run -it --rm --name mtk-tools --pull always --volume ./:/app sinfallas/mtk-tools:latest sara --config-file example.rsc
+```
