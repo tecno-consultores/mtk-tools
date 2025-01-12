@@ -1,6 +1,6 @@
 # mtk-tools
 
-Scripts to backup routeros and perform other activities such as changing the password for a capsman SSID and generating its QR.
+Scripts to backup routeros and perform other activities such as changing the password for a capsman SSID and generating its QR. includes fprobe and nfdump.
 
 
 # change SSID password and generate QR image.
