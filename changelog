@@ -1,4 +1,16 @@
-commit dc974b025deca7b043d3382be14b3c2860040b0d (HEAD -> main, origin/main, origin/HEAD)
+commit afd9bc84acb2c6a419f4e98102fdb5398acdd436 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Sun Jan 12 14:13:20 2025 -0400
+
+    * se agregan las dependencias para netflow
+
+commit 2cd03764cd064621697fee1a784af3ebdf35300a
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Mon Jan 6 19:51:44 2025 -0400
+
+    * changelog
+
+commit dc974b025deca7b043d3382be14b3c2860040b0d
 Author: Jesus Palencia <sinfallas@gmail.com>
 Date:   Mon Jan 6 19:51:35 2025 -0400
 
