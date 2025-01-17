@@ -1,3 +1,4 @@
+forcecaps=0
 suser=USUARIO
 sshpass=password
 sshport=1234
@@ -8,4 +9,3 @@ cport=587
 cuser=user@mail.com
 cpass=password
 cdestinos=user1@mail.com,user2@mail.com
-forcecaps=0
