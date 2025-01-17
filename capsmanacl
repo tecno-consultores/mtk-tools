@@ -60,6 +60,9 @@ if ! [[ -f ./maclist.txt ]]; then
 fi
 
 queversion2
+if [[ "$forcecaps" == "1" ]]; then
+	wcmd="caps"
+fi
 
 if [[ "$wcmd" == "caps" && "$sshport" == "22" ]]; then
 	sshpass -p $sshpass $cssh $suser@$ips "caps-man access-list remove [find]"

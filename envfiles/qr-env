@@ -9,3 +9,4 @@ cuser=user@mail.com
 cpass=password
 cdestinos=user1@mail.com,user2@mail.com
 nssid=visita
+forcecaps=0

@@ -71,6 +71,9 @@ for i in ${ips[@]}; do
 	echo "=========================" >> "$archi"
 	$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o "$donde"/qr/"$i".png
 	queversion
+	if [[ "$forcecaps" == "1" ]]; then
+		wcmd="caps"
+	fi
 	if [[ "$wcmd" == "caps" ]]; then
 		if [[ "$sshport" == "22" ]]; then
 			sshpass -p $sshpass $cssh $suser@$i "caps-man security set "$nssid" passphrase="$clave""
