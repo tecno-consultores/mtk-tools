@@ -1,4 +1,22 @@
-commit 7c24d289b880d4c7f9497819ecc6cf3e99a47c1d (HEAD -> main, origin/main, origin/HEAD)
+commit 59acce420a602c4d899bfa55c7002249b897c12e (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Fri Jan 17 15:59:06 2025 -0400
+
+    * bugfix
+
+commit dba3e168a5f63b876faae21064ff223168591a12
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Fri Jan 17 15:58:12 2025 -0400
+
+    * forcecaps=1
+
+commit 8fb031dd98da6d4bdc0a9c8e22364e7393302397
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Sun Jan 12 14:33:24 2025 -0400
+
+    * changelog
+
+commit 7c24d289b880d4c7f9497819ecc6cf3e99a47c1d
 Author: Jesus Palencia <sinfallas@gmail.com>
 Date:   Sun Jan 12 14:33:18 2025 -0400
 
