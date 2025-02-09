@@ -63,9 +63,15 @@ mkdir -p "$donde"/qr
 clear
 
 for i in ${ips[@]}; do
+	ping -A -c 5 $i > /dev/null
+	if [[ $? = 0 ]]; then
+		echo "IP: $i"
+		echo "IP: $i" >> "$archi"
+	else
+		echo "ERROR: $i no esta disponible."
+		exit 1
+	fi
 	clave=$(dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0 | tr -dc _A-Z-a-z-0-9 | cut -c 1-8)
-	echo "IP: $i"
-	echo "IP: $i" >> "$archi"
 	echo "Clave: $clave"
 	echo "Clave: $clave" >> "$archi"
 	echo "=========================" >> "$archi"

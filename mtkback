@@ -54,8 +54,14 @@ fi
 clear
 
 for i in ${ips[@]}; do
-	echo "IP: $i"
-	echo "IP: $i" >> "$archi"
+	ping -A -c 5 $i > /dev/null
+	if [[ $? = 0 ]]; then
+		echo "IP: $i"
+		echo "IP: $i" >> "$archi"
+	else
+		echo "ERROR: $i no esta disponible."
+		exit 1
+	fi
 	echo "=========================" >> "$archi"
 	if [[ "$sshport" == "22" ]]; then
 		echo "Creando Backup"
