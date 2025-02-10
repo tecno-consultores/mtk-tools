@@ -58,11 +58,11 @@ for i in ${ips[@]}; do
 	if [[ $? = 0 ]]; then
 		echo "IP: $i"
 		echo "IP: $i" >> "$archi"
+		echo "=========================" >> "$archi"
 	else
 		echo "ERROR: $i no esta disponible."
-		exit 1
+		continue
 	fi
-	echo "=========================" >> "$archi"
 	if [[ "$sshport" == "22" ]]; then
 		echo "Creando Backup"
 		echo "Creando Backup" >> "$archi"

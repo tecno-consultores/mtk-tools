@@ -67,16 +67,16 @@ for i in ${ips[@]}; do
 	if [[ $? = 0 ]]; then
 		echo "IP: $i"
 		echo "IP: $i" >> "$archi"
+		clave=$(dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0 | tr -dc _A-Z-a-z-0-9 | cut -c 1-8)
+		echo "Clave: $clave"
+		echo "Clave: $clave" >> "$archi"
+		echo "=========================" >> "$archi"
+		$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o "$donde"/qr/"$i".png
+		queversion
 	else
 		echo "ERROR: $i no esta disponible."
-		exit 1
+		continue
 	fi
-	clave=$(dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0 | tr -dc _A-Z-a-z-0-9 | cut -c 1-8)
-	echo "Clave: $clave"
-	echo "Clave: $clave" >> "$archi"
-	echo "=========================" >> "$archi"
-	$qre "WIFI:T:WPA;S:$nssid;P:$clave;;" -o "$donde"/qr/"$i".png
-	queversion
 	if [[ "$forcecaps" == "1" ]]; then
 		wcmd="caps"
 	fi
