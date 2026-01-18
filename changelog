@@ -1,4 +1,16 @@
-commit b09cddf89cbb7760bd0ee6331c1ec7260a125c4d (HEAD -> main, origin/main, origin/HEAD)
+commit a259354ecdba0518b5b74ce28c44b55e27783057 (HEAD -> main, origin/main, origin/HEAD)
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Sun Jan 18 10:28:10 2026 -0400
+
+    * update to 24.04
+
+commit abe048184414b57d735d68bda28cf63f1b39db83
+Author: Jesus Palencia <sinfallas@gmail.com>
+Date:   Sat Jan 17 10:50:32 2026 -0400
+
+    * changelog
+
+commit b09cddf89cbb7760bd0ee6331c1ec7260a125c4d
 Author: Jesus Palencia <sinfallas@gmail.com>
 Date:   Sat Jan 17 10:50:25 2026 -0400
 
