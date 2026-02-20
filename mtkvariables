@@ -5,7 +5,7 @@ LC_ALL=C
 LOCKFD="150"
 qre="qrencode -c -m 1 -s 10 -l H -d 100"
 cssh="ssh -4 -C -q -o StrictHostKeyChecking=no -o ConnectTimeout=3"
-cscp="scp -4 -C -o ConnectTimeout=3"
+cscp="scp -4 -C -o StrictHostKeyChecking=no -o ConnectTimeout=3"
 ctar="tar -czf"
 back="system backup save dont-encrypt=yes"
 terse="export terse compact show-sensitive"
