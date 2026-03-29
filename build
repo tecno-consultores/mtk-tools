@@ -8,6 +8,7 @@ if [[ "$EUID" = "0" ]]; then
 fi
 
 clear
+docker buildx rm container-builder
 docker buildx create --name container-builder --driver docker-container --bootstrap --use
 docker buildx build --platform linux/arm64,linux/amd64 --push -t sinfallas/mtk-tools:2.4.1 --builder=container-builder -f Dockerfile .
 docker buildx build --platform linux/arm64,linux/amd64 --push -t sinfallas/mtk-tools:latest --builder=container-builder -f Dockerfile .
