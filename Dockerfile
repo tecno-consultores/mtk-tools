@@ -1,9 +1,8 @@
-FROM ubuntu:24.04
-LABEL maintainer="Jesus Palencia sinfallas@gmail.com"
-LABEL build_date="2026-01-18"
+FROM ubuntu:26.04
+LABEL org.opencontainers.image.authors="sinfallas@gmail.com"
+
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
-COPY COPYING ./
 COPY capsmanqr /usr/bin/capsmanqr
 COPY capsmanacl /usr/bin/capsmanacl
 COPY mtkback /usr/bin/mtkback
@@ -15,3 +14,5 @@ RUN chmod 777 /usr/bin/mtkvariables
 RUN apt update -qq && apt -y dist-upgrade && apt -y install --no-install-recommends --no-install-suggests tzdata fprobe nfdump python3-textfsm python3-setuptools python3-colorama git libnet-ssleay-perl libcrypt-ssleay-perl tar zip unzip qrencode s3fs ssh sshpass sshfs samba-client swaks nano wget curl rsync expect iputils-ping pip && apt clean && apt -y autoremove && rm -rf /var/lib/{apt,dpkg,cache,log} && rm -rf /var/cache/* && rm -rf /var/log/apt/* && rm -rf /tmp/*
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" -o "/root/awscliv2.zip" && unzip /root/awscliv2.zip -d /root && /root/aws/install && rm -f /root/awscliv2.zip && rm -rf /root/aws
 RUN git clone https://github.com/casterbyte/Sara.git && cd Sara/ && python3 setup.py install && cd .. && rm -rf /app/Sara/
+ARG BUILD_DATE
+LABEL org.opencontainers.image.created=$BUILD_DATE
