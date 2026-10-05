@@ -1,4 +1,28 @@
-* commit ec5cbbaa3f39ff4727cdc8ca13021ba38d414cb1 (HEAD -> main, origin/main, origin/HEAD)
+* commit 9823af888b7b1fdeffd2da98346b78da3e59e95c (HEAD -> main, origin/main, origin/HEAD)
+| Author: Jesus Palencia <sinfallas@gmail.com>
+| Date:   Mon Oct 5 10:31:59 2026 -0400
+| 
+|     Actualizacion automatica
+| 
+* commit 2091ff71d79c0bfe68bb7932ba286800e3ba70b5 (tag: v2.5.0)
+| Author: Sinfallas <sinfallas@gmail.com>
+| Date:   Mon Oct 5 10:26:00 2026 -0400
+| 
+|     Combine multiple rm commands into one
+| 
+* commit f03e4d5afc1d8550a0c2855cd9091705450a9dda
+| Author: Sinfallas <sinfallas@gmail.com>
+| Date:   Mon Oct 5 10:24:59 2026 -0400
+| 
+|     Refactor input validation and processing logic
+| 
+* commit a15338a86ef7d052397b6b05b9aafa4ffef13691 (tag: v2.4.2)
+| Author: Jesus Palencia <sinfallas@gmail.com>
+| Date:   Sun Sep 20 14:31:38 2026 -0400
+| 
+|     * changelog
+| 
+* commit ec5cbbaa3f39ff4727cdc8ca13021ba38d414cb1
 | Author: Jesus Palencia <sinfallas@gmail.com>
 | Date:   Sun Sep 20 14:31:36 2026 -0400
 | 
