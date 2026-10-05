@@ -16,84 +16,70 @@ echo "$BASHPID" > /run/$(basename $0).pid
 trap "clean_1; exit" 0 1 2 3 9 15
 lock || exit_error
 
-if [[ -z "$suser" ]]; then
-	ayuda
-fi
-
-if [[ -z "$sshport" ]]; then
-	ayuda
-fi
-
-if [[ -z "$sshpass" ]]; then
-	ayuda
-fi
-
-if [[ -z "$ips" ]]; then
-	ayuda
-fi
-
-if [[ -z "$cport" ]]; then
-	ayuda
-fi
-
-if [[ -z "$cuser" ]]; then
-	ayuda
-fi
-
-if [[ -z "$cpass" ]]; then
-	ayuda
-fi
-
-if [[ -z "$cdestinos" ]]; then
-	ayuda
-fi
-
-if [[ -z "$cfrom" ]]; then
+if [[ -z "$suser" ]] || [[ -z "$sshport" ]] || [[ -z "$sshpass" ]] || [[ -z "$ips" ]] || [[ -z "$cport" ]] || [[ -z "$cuser" ]] || [[ -z "$cpass" ]] || [[ -z "$cdestinos" ]] || [[ -z "$cfrom" ]]; then
 	ayuda
 fi
 clear
 
-for i in ${ips[@]}; do
-	ping -A -c 5 $i > /dev/null
+procesar_mikrotik() {
+	local i=$1
+	local log_tmp="/tmp/mtk_log_${i}.txt"
+
+	ping -A -c 5 "$i" > /dev/null
 	if [[ $? = 0 ]]; then
-		echo "IP: $i"
-		echo "IP: $i" >> "$archi"
-		echo "=========================" >> "$archi"
+		echo -e "IP: $i\n=========================" > "$log_tmp"
 	else
 		echo "ERROR: $i no esta disponible."
-		continue
+		echo "ERROR: $i no esta disponible." >> "$log_tmp"
+		cat "$log_tmp" >> "$archi"
+		rm -f "$log_tmp"
+		return 1
 	fi
+
 	if [[ "$sshport" == "22" ]]; then
-		echo "Creando Backup"
-		echo "Creando Backup" >> "$archi"
-		sshpass -p $sshpass $cssh $suser@$i "$back name="$i""
-		echo "Creando Terse"
-		echo "Creando Terse" >> "$archi"
-		sshpass -p $sshpass $cssh $suser@$i "$terse file="$i""
-		echo "Descargando Backup"
-		echo "Descargando Backup" >> "$archi"
-		sshpass -p $sshpass $cscp $suser@$i:$i.backup "$donde"/
-		echo "Descargando Terse"
-		echo "Descargando Terse" >> "$archi"
-		sshpass -p $sshpass $cscp $suser@$i:$i.rsc "$donde"/
+		echo "Creando Backup en $i" | tee -a "$log_tmp"
+		sshpass -p "$sshpass" $cssh "$suser@$i" "$back name=$i"
+
+		echo "Creando Terse en $i" | tee -a "$log_tmp"
+		sshpass -p "$sshpass" $cssh "$suser@$i" "$terse file=$i"
+
+		echo "Descargando Backup de $i" | tee -a "$log_tmp"
+		sshpass -p "$sshpass" $cscp "$suser@$i:$i.backup" "$donde"/
+
+		echo "Descargando Terse de $i" | tee -a "$log_tmp"
+		sshpass -p "$sshpass" $cscp "$suser@$i:$i.rsc" "$donde"/
 	else
-		echo "Creando Backup"
-		echo "Creando Backup" >> "$archi"
-		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$back name="$i""
-		echo "Creando Terse"
-		echo "Creando Terse" >> "$archi"
-		sshpass -p $sshpass $cssh -p $sshport $suser@$i "$terse file="$i""
-		echo "Descargando Backup"
-		echo "Descargando Backup" >> "$archi"
-		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.backup "$donde"/
-		echo "Descargando Terse"
-		echo "Descargando Terse" >> "$archi"
-		sshpass -p $sshpass $cscp -P $sshport $suser@$i:$i.rsc "$donde"/
+		echo "Creando Backup en $i" | tee -a "$log_tmp"
+		sshpass -p "$sshpass" $cssh -p "$sshport" "$suser@$i" "$back name=$i"
+
+		echo "Creando Terse en $i" | tee -a "$log_tmp"
+		sshpass -p "$sshpass" $cssh -p "$sshport" "$suser@$i" "$terse file=$i"
+
+		echo "Descargando Backup de $i" | tee -a "$log_tmp"
+		sshpass -p "$sshpass" $cscp -P "$sshport" "$suser@$i:$i.backup" "$donde"/
+
+		echo "Descargando Terse de $i" | tee -a "$log_tmp"
+		sshpass -p "$sshpass" $cscp -P "$sshport" "$suser@$i:$i.rsc" "$donde"/
+	fi
+
+	cat "$log_tmp" >> "$archi"
+	rm -f "$log_tmp"
+}
+
+max_paralelos=10
+
+for i in $ips; do
+	procesar_mikrotik "$i" &
+
+	if [[ $(jobs -r -p | wc -l) -ge $max_paralelos ]]; then
+		wait -n
 	fi
 done
 
+wait
+
 echo "Comprimiendo"
-$ctar "$donde"/backup-"$fecha".tar.gz "$donde"/
+$ctar "$donde"/backup-"$fecha".tar.gz --exclude="backup-*.tar.gz" "$donde"/
 
 if [[ -z "$cserver" ]]; then
 	echo "No se enviara correo."
