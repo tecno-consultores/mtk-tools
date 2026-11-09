@@ -30,3 +30,6 @@ First place the your **.rsc** file, then mount the folder that contains said fil
 ```bash
 docker run -it --rm --name mtk-tools --pull always --volume ./:/app sinfallas/mtk-tools:latest sara --config-file example.rsc
 ```
+
+
+Copyright (C) 2026 Jesus Palencia <sinfallas@gmail.com> (Creado en Tecno Consultores)
